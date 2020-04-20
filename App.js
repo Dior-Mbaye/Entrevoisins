@@ -1,56 +1,78 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Dimensions , Button ,Image } from 'react-native';
-import { LinearGradient } from 'expo-Linear-gradient';
-import { blue } from 'color-name';
+import { SafeAreaView, View, FlatList, StyleSheet, Text} from 'react-native';
+import Constants from 'expo-constants';
+import { Image , Icon} from 'react-native-elements' ;
 
-//Get screen dimensions
-const {heigh, width } = Dimensions.get('window') ;
+const DATA = [
+  {
+    id: '1',
+    image: 'https://i.pravatar.cc/150?u=838433638',
+    title: 'Caroline',
+  },
+  {
+    id: '2',
+    image: 'https://i.pravatar.cc/150?u=838433638',
+    title: 'Jack',
+  },
+  {
+    id: '3',
+    image: 'https://i.pravatar.cc/150?u=838433638',
+    title: 'Chloé',
+  },
+  {
+    id: '4',
+    image: 'https://i.pravatar.cc/150?u=838433638',
+    title: 'Vincent',
+  },
+  {
+    id: '5',
+    image: 'https://i.pravatar.cc/150?u=838433638',
+    title: 'Elodi',
+  },
+  {
+    id: '6',
+    image: 'https://i.pravatar.cc/150?u=838433638',
+    title: 'Sylvin',
+  },
+];
+
+function Item({ title }) {
+  return (
+    <View style={styles.item}>
+      <Image
+          style={styles.tinyLogo}
+          source={{uri : 'https://i.pravatar.cc/150?u=838433638'}}
+      />
+      <Text style={styles.title}>{title}</Text>
+      <Icon name='delete'/>
+    </View>
+  );
+}
 
 export default function App() {
   return (
-    <LinearGradient style={styles.container} colors={['#fff' , '#fff']}>
-        <Text style={styles.appTitle}>New neighbour</Text>
-        <View style={styles.card}>
-          <TextInput style={styles.input} placeholder="Name"/>
-          <TextInput style={styles.input} placeholder="Phone number"/>
-          <TextInput style={styles.input} placeholder="Adress"/>
-          <TextInput style={styles.input} placeholder="About me"/>
-          <Button title='Save' onPress={() => {}} color='pink'/>
-        </View>
-    </LinearGradient>
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={DATA}
+        renderItem={({ item }) => <Item title={item.title} />}
+        keyExtractor={item => item.id}
+      />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //backgroundColor: '#fff',
-    alignItems: 'center',
-    //justifyContent: 'center',
+    marginTop: Constants.statusBarHeight,
   },
-
-  appTitle: {
-    color: '#fff',
-    fontSize: 36 ,
-    marginTop: 60 ,
-    marginBotton: 30 ,
-    fontWeight: '300' ,
-    backgroundColor: 'blue'
+  item: {
+    backgroundColor: '#f9c2ff',
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
   },
-
-  card: {
-    backgroundColor: '#fff' ,
-    flex: 1 ,
-    width: width-25 ,
-    borderTopLeftRadius: 10 ,
-    borderTopRightRadius: 10
-  },
-
-  input: {
-    padding: 20 ,
-    borderBottomColor: '#bbb' ,
-    borderBottomWidth: 1 ,
-    fontSize: 24 ,
-    borderColor: 'pink'
+  title: {
+    fontSize: 32,
   }
 });
